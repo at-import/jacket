@@ -1,23 +1,12 @@
 // Jacket
 // Dress appropriately
-// Dress your code appropriately
 
 // Order your styles for multi context build process
 // Only serve the styles needed to the device/build needed. Don't serve "extra" styles to the most incapable browsers/older builds
 
-// place around rules in a selector -- or around a selector (test it!)?
-
-// mixin
-// print contents if jacket settings var has jacket arg set.
-// get context function
-
-// vars in vars? No, no use to overcomplicate. Only setting once per sheet.
-
-// wrapper class in settings var or args?
+// place around rules in a selector only
 
 //give the setting a class and it will wrap it.
-
-// wrapping classes -- if jacket print, and jacket item has wrapping class and has non-wrapped item, print both.
 
 // Can set vars for classes, e.g. $oldie: oldie .ie-old;
 //$jacket: standards;
@@ -29,97 +18,65 @@
 //   }
 // }
 
-// can be either inside or out, but not both. I vote for in...
-// can we use mixin bubbling to make it both?
 
-// all shows up in your main stylesheet by default.
-// Why? necessary?
-// Why would you jacket things if you didn't want to hide them?
 $jacket: null !default;
-
 // Set var in global scope
 $jacket-context: null;
 
-$jacket: ie8 '.oldie', ie9 '.oldie';
-$jacket: android-2.7;
-$jacket: ios;
-
-// needs better name than args
-// args can be list
 @mixin jacket($args) {
 
-  // have to set args context separately
+  $selectors: ();
+  $filtered: ();
+  $selector-string: '';
+
+  // Set the global $jacket-context variable.
   $jacket-context: $args;
 
-  $naked: false;
-  $wrappers: ();
-  $selector: '';
-
-  // $jacket is guaranteed set because of mixin
+  // Test if the stylesheet's arguments and jacket match.
   @each $item in $jacket {
-
-    // if item is in args, print
     @if index($args, nth($item, 1)) {
-      // Get selector for printing
+
+      // Gather wrapping selectors.
       @if length($item) == 1 {
-        $naked: true;
+        $selectors: append($selectors, '&')
       }
       @if length($item) == 2 {
-        $wrappers: append($wrappers, nth($item, 2));
+        $selectors: append($selectors, nth($item, 2) + ' &');
       }
     }
-
   }
 
-  // now we have $print == true
-  // and applicable classes
-  // $class needs to be stripped turned into a selector
-  //.class { & {rule }} == .class {rule}. Yep!
-
-  // have to drop that & in there too
-
-  @if $naked {
-    $selector: '&';
-  }
-
-  @each $wrapper in $wrappers {
-
-    // check for duplicates
-    // reject() at end would clear out all duplicates.
-    @if () {}
-
-    @if $selector != '' {
-      $selector: $selector + ", ";
+  // Filter out duplicate selectors. Use a holder variable until we get
+  // reject() in vanilla Sass.
+  @each $selector in $selectors {
+    @if index($filtered, $selector) == false {
+      $filtered: append($holder, $selector);
     }
-    $selector: $selector + $wrapper + ' &';
   }
 
-  // do we need both? think we can take print out.
-  @if $selector != '' {
-    #{$selector} {
+  // Build the selector string and output.
+  @each $selector in $filtered {
+    @if $selector-string != '' {
+      $selector-string: $selector-string + ", ";
+    }
+    $selector-string: $selector-string + $selector;
+  }
+
+  // If the weather is right, output that jacketed code!
+  @if $selector-string != '' {
+    #{$selector-string} {
       @content;
     }
   }
 }
 
-$tst: 1, 2, 3, 3, false, 5;
-
-@debug reject($tst);
-
-
 // Check if a jacket has a certain value set
-// return true false or jacket class?
-// do we need the args: args?
+// return true or false
 @function jacket-context($arg) {
-  // wait wait, need nth(1) on args list
-  // Wait, no we don't because class is set in $jacket.
-  // $args-context: ();
-  // @each $arg in $args {
-  //   $args-context: append(nth($arg, 1));
-  // }
-
   @return if(index($jacket-context, $arg), true, false);
 }
+
+
 
 .class1 {
   @include jacket(ie8 ie9) {
