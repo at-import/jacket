@@ -18,7 +18,7 @@ $jacket-context: null;
 // Jacket mixin
 // Takes a list of jacket values.
 ///////////////////////////////////////////////////////////
-@mixin jacket($args) {
+@mixin jacket($args...) {
 
   $naked: false;
   $selectors: ();
@@ -28,13 +28,15 @@ $jacket-context: null;
   // Set the global $jacket-context variable.
   $jacket-context: $args;
 
-  // RWRW if $jacket length == 2, test if space sep or comma sep. if space, encapsulate
-  // Guess I need to add some ruby till Sass 3.3
+  // If jacket is a single jacket value and selector list, encapsulate so it's
+  // sent through the next function in one piece.
+  @if list-separator($jacket) == 'space' {
+    $jacket: $jacket, null;
+  }
 
   // Test if the stylesheet's arguments and jacket match.
   @each $item in $jacket {
     @if index($args, nth($item, 1)) {
-
 
       // Gather wrapping selectors.
       @if length($item) == 1 {
@@ -46,8 +48,8 @@ $jacket-context: null;
     }
   }
 
-  // Filter out duplicate selectors. Use a holder variable until we get
-  // reject() in vanilla Sass.
+  // Filter out duplicate selectors. Simplify when we get reject() in vanilla
+  // Sass.
   @each $selector in $selectors {
     @if index($filtered, $selector) == false {
       $filtered: append($filtered, $selector);
@@ -82,31 +84,3 @@ $jacket-context: null;
 @function jacket-context($arg) {
   @return if(index($jacket-context, $arg), true, false);
 }
-
-///// test test
-
-$jacket: ie8 '.ltie9';
-
-.rainy {
-  // Universal rules
-  font-size: 1rem;
-  width: 90%;
-
-  // Styles for iOS only
-  @include jacket(ios) {
-    background-color: #c0ffee;
-    content: 'Double ristretto cortado, stat.';
-  }
-  // Styles for Android 2.x only
-  @include jacket(andr-2x) {
-    background-color: #baddad;
-    content: 'I should get a new phone.';
-  }
-  // Styles for ie8 only
-  @include jacket(ie8) {
-    background-color: #000;
-    content: 'Round three. FIGHT!';
-  }
-}
-
-

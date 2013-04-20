@@ -103,12 +103,12 @@ $jacket: ios, andr-2x;
 }
 ```
 
-Or add wrapper classes for a context, if that's your sort of thing.
+Or add wrapper selectors for a context, if that's your thing.
 
 style.scss
 
 ```scss
-// Set the weather 
+// Set the weather. Make sure to surround your selector with quotes.
 $jacket: ie8 '.ltie9';
 @import 'style';
 
