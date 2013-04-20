@@ -1,13 +1,17 @@
-## Jacket
+## Jacket 
 ### Dress appropriately
 
-Jacket helps orgainze your stylesheets for a multi context build process.
+Jacket helps orgainze your stylesheets for a multi-context build process.
 Write and maintain a master stylesheet, then output custom tailored
-stylesheets for specific browsers, mobile and desktop sites, and app builds.
+stylesheets for specific browsers, mobile/desktop sites, and app builds.
+
+*currently in alpha.*
 
 ### Usage
 
-Write all code in a canonical stylesheet (style.scss):
+Write all code in a canonical stylesheet.
+
+**style.scss**
 
 ```scss
 .rainy {
@@ -33,9 +37,9 @@ Write all code in a canonical stylesheet (style.scss):
 }
 ```
 
-Create stylesheets for each build and tell Jacket what the weather is.
+Then create stylesheets for each build, and tell Jacket what the weather is.
 
-style.ios.scss
+**style.ios.scss**
 
 ```scss
 // Set the weather 
@@ -51,7 +55,7 @@ $jacket: ios;
 }
 ```
 
-style.android-2x.scss
+**style.android-2x.scss**
 
 ```scss
 // Set the weather 
@@ -67,11 +71,11 @@ $jacket: andr-2x;
 }
 ```
 
-style.ie.scss
+**style.ie.scss**
 
 ```scss
 // Set the weather 
-$jacket: andr-2x;
+$jacket: ie8;
 @import 'style';
 
 // Compiled result
@@ -85,7 +89,7 @@ $jacket: andr-2x;
 
 You can set multiple comma separated contexts in `$jacket`.
 
-style.scss
+**style.scss**
 
 ```scss
 // Set the weather 
@@ -105,7 +109,7 @@ $jacket: ios, andr-2x;
 
 Or output a context wrapped in selectors, if that's your thing.
 
-style.scss
+**style.scss**
 
 ```scss
 // Set the weather. Make sure to surround your selector with quotes.
@@ -124,10 +128,10 @@ $jacket: ie8 '.ltie9';
 }
 ```
 
+Complex Jacket contexts like `$jacket: mdot, ie7 '.ltie9', ie8 'ltie9'` work just fine.
+
 ### Strut your stuff
 
 Now use a build process, conditional comments, or some fancy scripting to give each of your chosen environments a stylesheet made just for them. Not too much, not too little. Those stylesheets are lookin' good.
 
-
-
-<small>*Many thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's get context function inspired this project.*</small>
+<small>*Many thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's no-query functionality inspired this project.*</small>
