@@ -17,18 +17,29 @@
 
 //give the setting a class and it will wrap it.
 
-// wrapping classes -- if jacket print, and jacket item has wrapping class and has non-wrapped item, print non wrapped or print both?
+// wrapping classes -- if jacket print, and jacket item has wrapping class and has non-wrapped item, print both.
 
 // Can set vars for classes, e.g. $oldie: oldie .ie-old;
-// only time you'd put jacket in is if you were hiding from standards.
 //$jacket: standards;
+
+// .rule {
+//   jak(standards) {
+//   }
+//   jak(oldie) {
+//   }
+// }
+
+// can be either inside or out, but not both. I vote for in...
+// can we use mixin bubbling to make it both?
 
 // all shows up in your main stylesheet by default.
 // Why? necessary?
 // Why would you jacket things if you didn't want to hide them?
 $jacket: null !default;
 
-$jacket: ie8 .oldie, ie9 .oldie;
+$jacket-context: null;
+
+$jacket: ie8 '.oldie', ie9 '.oldie';
 $jacket: android-2.7;
 $jacket: ios;
 
@@ -36,10 +47,14 @@ $jacket: ios;
 // args can be list
 @mixin jacket($args) {
 
+  // have to set args context separately
+  $jacket-context: $args;
+
   // Whether to print content. default false
   $print: false;
-  // What to wrap content in
-  $class: ();
+  $naked: false;
+  $wrapper: ();
+  $selectors: '';
 
   // $jacket is guaranteed set because of mixin
   @each $item in $jacket {
@@ -48,43 +63,51 @@ $jacket: ios;
     @if index($args, nth($item, 1)) {
       $print: true;
 
-      // and get class if it exists
+      // Get selector for printing
       @if length($item) == 1 {
-        // add a print content bare?
+        $naked: true;
       }
       @if length($item) == 2 {
-        $class: append($class, nth($item, 2));
+        $wrapper: append($wrapper, nth($item, 2));
       }
     }
 
-    // now we have $print == true
-    // and applicable classes
-
-    @else {
-      // add symbol for non-wrapping, just the &.
-    }
   }
 
-
-  // $class needs to be stripped of duplicates (& duplicates mostly)
-  // and then turned into a selector
+  // now we have $print == true
+  // and applicable classes
+  // $class needs to be stripped turned into a selector
   //.class { & {rule }} == .class {rule}. Yep!
 
-  // if class == & set var to true, if != and add class to selector
+  // have to drop that & in there too
 
+  @if $naked {
+    $selectors: '&';
+  }
+
+  @each $selector in $wrapper {
+    @if $selectors != '' {
+      $selectors: $selectors + ", ";
+    }
+    $selectors: $selectors + $selector + ' &';
   }
 
   @if $print {
-    $selector {
+    #{$selectors} {
       @content;
     }
   }
 }
 
+$tst: 1, 2, 3, 3, false, 5;
+
+@debug reject($tst);
+
+
 // Check if a jacket has a certain value set
 // return true false or jacket class?
 // do we need the args: args?
-@function jacket-context($arg, $args: $args) {
+@function jacket-context($arg) {
   // wait wait, need nth(1) on args list
   // Wait, no we don't because class is set in $jacket.
   // $args-context: ();
@@ -92,7 +115,7 @@ $jacket: ios;
   //   $args-context: append(nth($arg, 1));
   // }
 
-  @return if(index($args, $arg), true, false);
+  @return if(index($jacket-context, $arg), true, false);
 }
 
 .class1 {
