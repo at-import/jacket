@@ -10,6 +10,8 @@ end
 module Sass::Script::Functions
 
   # Add the Sass list_separator() function until it lands in Sass 3.3
+  # Code fixes from https://github.com/nex3/sass/pull/689#issuecomment-16711829
+  # included.
 
   # Returns the separator of the given list.
   # If not a list, returns false.

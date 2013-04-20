@@ -1,13 +1,13 @@
 ## Jacket
 ### Dress appropriately
 
-Jacket helps you orgainze stylesheets for a multi context build process.
+Jacket helps orgainze your stylesheets for a multi context build process.
 Write and maintain a master stylesheet, then output custom tailored
-stylesheets for specific devices, browsers, and builds.
+stylesheets for specific browsers, mobile and desktop sites, and app builds.
 
 ### Usage
 
-Write all code in your canonical stylesheet (style.scss):
+Write all code in a canonical stylesheet (style.scss):
 
 ```scss
 .rainy {
@@ -33,7 +33,7 @@ Write all code in your canonical stylesheet (style.scss):
 }
 ```
 
-Create a stylesheets for each build, and tell Jacket what the weather is.
+Create stylesheets for each build and tell Jacket what the weather is.
 
 style.ios.scss
 
@@ -67,7 +67,7 @@ $jacket: andr-2x;
 }
 ```
 
-style.android-2x.scss
+style.ie.scss
 
 ```scss
 // Set the weather 
@@ -103,7 +103,7 @@ $jacket: ios, andr-2x;
 }
 ```
 
-Or add wrapper selectors for a context, if that's your thing.
+Or output a context wrapped in selectors, if that's your thing.
 
 style.scss
 
@@ -124,4 +124,10 @@ $jacket: ie8 '.ltie9';
 }
 ```
 
-*Inspired by [Breakpoint's](https://github.com/Team-Sass/breakpoint) breakpoint-context.*
+### Strut your stuff
+
+Now use a build process, conditional comments, or some fancy scripting to give each of your chosen environments a stylesheet made just for them. Not too much, not too little. Those stylesheets are lookin' good.
+
+
+
+<small>*Many thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's get context function inspired this project.*</small>
