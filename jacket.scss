@@ -1,0 +1,108 @@
+// Jacket
+// Dress appropriately
+// Dress your code appropriately
+
+// Order your styles for multi context build process
+// Only serve the styles needed to the device/build needed. Don't serve "extra" styles to the most incapable browsers/older builds
+
+// place around rules in a selector -- or around a selector (test it!)?
+
+// mixin
+// print contents if jacket settings var has jacket arg set.
+// get context function
+
+// vars in vars? No, no use to overcomplicate. Only setting once per sheet.
+
+// wrapper class in settings var or args?
+
+//give the setting a class and it will wrap it.
+
+// wrapping classes -- if jacket print, and jacket item has wrapping class and has non-wrapped item, print non wrapped or print both?
+
+// Can set vars for classes, e.g. $oldie: oldie .ie-old;
+// only time you'd put jacket in is if you were hiding from standards.
+//$jacket: standards;
+
+// all shows up in your main stylesheet by default.
+// Why? necessary?
+// Why would you jacket things if you didn't want to hide them?
+$jacket: null !default;
+
+$jacket: ie8 .oldie, ie9 .oldie;
+$jacket: android-2.7;
+$jacket: ios;
+
+// needs better name than args
+// args can be list
+@mixin jacket($args) {
+
+  // Whether to print content. default false
+  $print: false;
+  // What to wrap content in
+  $class: ();
+
+  // $jacket is guaranteed set because of mixin
+  @each $item in $jacket {
+
+    // if item is in args, print
+    @if index($args, nth($item, 1)) {
+      $print: true;
+
+      // and get class if it exists
+      @if length($item) == 1 {
+        // add a print content bare?
+      }
+      @if length($item) == 2 {
+        $class: append($class, nth($item, 2));
+      }
+    }
+
+    // now we have $print == true
+    // and applicable classes
+
+    @else {
+      // add symbol for non-wrapping, just the &.
+    }
+  }
+
+
+  // $class needs to be stripped of duplicates (& duplicates mostly)
+  // and then turned into a selector
+  //.class { & {rule }} == .class {rule}. Yep!
+
+  // if class == & set var to true, if != and add class to selector
+
+  }
+
+  @if $print {
+    $selector {
+      @content;
+    }
+  }
+}
+
+// Check if a jacket has a certain value set
+// return true false or jacket class?
+// do we need the args: args?
+@function jacket-context($arg, $args: $args) {
+  // wait wait, need nth(1) on args list
+  // Wait, no we don't because class is set in $jacket.
+  // $args-context: ();
+  // @each $arg in $args {
+  //   $args-context: append(nth($arg, 1));
+  // }
+
+  @return if(index($args, $arg), true, false);
+}
+
+.class1 {
+  @include jacket(ie8 ie9) {
+    content: 'whsa?';
+  }
+}
+
+.class1 {
+  @include jacket(ios) {
+    content: 'sshawp';
+  }
+}
