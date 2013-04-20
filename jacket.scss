@@ -1,28 +1,23 @@
+///////////////////////////////////////////////////////////
 // Jacket
 // Dress appropriately
+///////////////////////////////////////////////////////////
 
-// Order your styles for multi context build process
-// Only serve the styles needed to the device/build needed. Don't serve "extra" styles to the most incapable browsers/older builds
+// Jacket helps you orgainze stylesheets for a multi context build process.
+// Write and maintain a master stylesheet, and output custom tailored
+// stylesheets for specific devices, browsers, and builds.
 
-// place around rules in a selector only
-
-//give the setting a class and it will wrap it.
-
-// Can set vars for classes, e.g. $oldie: oldie .ie-old;
-//$jacket: standards;
-
-// .rule {
-//   jak(standards) {
-//   }
-//   jak(oldie) {
-//   }
-// }
-
-
+// A list of jackets to print in the stylesheet.
 $jacket: null !default;
-// Set var in global scope
+
+// A private variable used by jacket-context().
 $jacket-context: null;
 
+
+///////////////////////////////////////////////////////////
+// Jacket mixin
+// Takes a list of jacket values.
+///////////////////////////////////////////////////////////
 @mixin jacket($args) {
 
   $selectors: ();
@@ -70,22 +65,12 @@ $jacket-context: null;
   }
 }
 
-// Check if a jacket has a certain value set
-// return true or false
+
+///////////////////////////////////////////////////////////
+// Jacket Context function
+// Takes a jacket value. Use inside a jacket block to check
+// if a specific jacket value is set.
+///////////////////////////////////////////////////////////
 @function jacket-context($arg) {
   @return if(index($jacket-context, $arg), true, false);
-}
-
-
-
-.class1 {
-  @include jacket(ie8 ie9) {
-    content: 'whsa?';
-  }
-}
-
-.class1 {
-  @include jacket(ios) {
-    content: 'sshawp';
-  }
 }
