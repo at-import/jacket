@@ -4,7 +4,7 @@
 ///////////////////////////////////////////////////////////
 
 // Jacket helps you orgainze stylesheets for a multi context build process.
-// Write and maintain a master stylesheet, and output custom tailored
+// Write and maintain a master stylesheet, then output custom tailored
 // stylesheets for specific devices, browsers, and builds.
 
 // A list of jackets to print in the stylesheet.
@@ -20,6 +20,7 @@ $jacket-context: null;
 ///////////////////////////////////////////////////////////
 @mixin jacket($args) {
 
+  $naked: false;
   $selectors: ();
   $filtered: ();
   $selector-string: '';
@@ -27,13 +28,17 @@ $jacket-context: null;
   // Set the global $jacket-context variable.
   $jacket-context: $args;
 
+  // RWRW if $jacket length == 2, test if space sep or comma sep. if space, encapsulate
+  // Guess I need to add some ruby till Sass 3.3
+
   // Test if the stylesheet's arguments and jacket match.
   @each $item in $jacket {
     @if index($args, nth($item, 1)) {
 
+
       // Gather wrapping selectors.
       @if length($item) == 1 {
-        $selectors: append($selectors, '&')
+        $naked: true;
       }
       @if length($item) == 2 {
         $selectors: append($selectors, nth($item, 2) + ' &');
@@ -45,7 +50,7 @@ $jacket-context: null;
   // reject() in vanilla Sass.
   @each $selector in $selectors {
     @if index($filtered, $selector) == false {
-      $filtered: append($holder, $selector);
+      $filtered: append($filtered, $selector);
     }
   }
 
@@ -58,6 +63,9 @@ $jacket-context: null;
   }
 
   // If the weather is right, output that jacketed code!
+  @if $naked {
+    @content;
+  }
   @if $selector-string != '' {
     #{$selector-string} {
       @content;
@@ -68,9 +76,37 @@ $jacket-context: null;
 
 ///////////////////////////////////////////////////////////
 // Jacket Context function
-// Takes a jacket value. Use inside a jacket block to check
-// if a specific jacket value is set.
+// Takes a jacket value. Use when code inside a jacket
+// needs to know if a specific jacket value is set.
 ///////////////////////////////////////////////////////////
 @function jacket-context($arg) {
   @return if(index($jacket-context, $arg), true, false);
 }
+
+///// test test
+
+$jacket: ie8 '.ltie9';
+
+.rainy {
+  // Universal rules
+  font-size: 1rem;
+  width: 90%;
+
+  // Styles for iOS only
+  @include jacket(ios) {
+    background-color: #c0ffee;
+    content: 'Double ristretto cortado, stat.';
+  }
+  // Styles for Android 2.x only
+  @include jacket(andr-2x) {
+    background-color: #baddad;
+    content: 'I should get a new phone.';
+  }
+  // Styles for ie8 only
+  @include jacket(ie8) {
+    background-color: #000;
+    content: 'Round three. FIGHT!';
+  }
+}
+
+

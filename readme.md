@@ -2,7 +2,7 @@
 ### Dress appropriately
 
 Jacket helps you orgainze stylesheets for a multi context build process.
-Write and maintain a master stylesheet and output custom tailored
+Write and maintain a master stylesheet, then output custom tailored
 stylesheets for specific devices, browsers, and builds.
 
 ### Usage
@@ -83,7 +83,7 @@ $jacket: andr-2x;
 }
 ```
 
-You can set multiple contexts in `$jacket`.
+You can set multiple comma separated contexts in `$jacket`.
 
 style.scss
 
@@ -103,7 +103,7 @@ $jacket: ios, andr-2x;
 }
 ```
 
-Or create wrapper classes, if that's your sort of thing.
+Or add wrapper classes for a context, if that's your sort of thing.
 
 style.scss
 
@@ -124,4 +124,4 @@ $jacket: ie8 '.ltie9';
 }
 ```
 
-Inspired by [Breakpoint's](https://github.com/Team-Sass/breakpoint) breakpoint-context.
+*Inspired by [Breakpoint's](https://github.com/Team-Sass/breakpoint) breakpoint-context.*
