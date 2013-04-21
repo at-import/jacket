@@ -5,8 +5,6 @@ Jacket helps orgainze your stylesheets for a multi-context build process.
 Write and maintain a master stylesheet, then output custom tailored
 stylesheets for specific browsers, mobile/desktop sites, and app builds.
 
-*currently in alpha.*
-
 ### Usage
 
 Write all code in a canonical stylesheet.

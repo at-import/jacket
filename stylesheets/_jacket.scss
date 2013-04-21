@@ -3,9 +3,9 @@
 // Dress appropriately
 ///////////////////////////////////////////////////////////
 
-// Jacket helps you orgainze stylesheets for a multi context build process.
+// Jacket helps you orgainze stylesheets for a multi-context build process.
 // Write and maintain a master stylesheet, then output custom tailored
-// stylesheets for specific browsers, mobile and desktop sites, and app builds.
+// stylesheets for specific browsers, mobile/desktop sites, and app builds.
 
 // A list of jackets to print in the stylesheet.
 $jacket: null !default;
@@ -34,7 +34,7 @@ $jacket-context: null;
     $jacket: $jacket, null;
   }
 
-  // Test if the stylesheet's arguments and jacket match.
+  // Test if the stylesheet's $jacket variable and jacket mixin arguments match.
   @each $item in $jacket {
     @if index($args, nth($item, 1)) {
 
@@ -48,7 +48,7 @@ $jacket-context: null;
     }
   }
 
-  // Filter out duplicate selectors. Simplify when we get reject() in vanilla
+  // Filter out duplicate selectors. We can simplify if reject() is added to
   // Sass.
   @each $selector in $selectors {
     @if index($filtered, $selector) == false {
