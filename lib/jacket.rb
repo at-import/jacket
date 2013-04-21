@@ -1,9 +1,10 @@
 # TODO: Remove lib/ when Sass 3.3 is released
-
-Compass::Frameworks.register("jacket", :path => "#{File.dirname(__FILE__)}/..")
+require 'compass'
+extension_path = File.expand_path(File.join(File.dirname(__FILE__), ".."))
+Compass::Frameworks.register('jacket', :path => extension_path)
 
 module Jacket
-  VERSION = "1.0.0-alpha"
+  VERSION = "0.1.0"
   DATE = "2013-05-20"
 end
 
