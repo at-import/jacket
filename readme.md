@@ -132,4 +132,9 @@ Complex Jacket contexts like `$jacket: mdot, ie7 '.ltie9', ie8 'ltie9'` work jus
 
 Now use a build process, conditional comments, or some fancy scripting to give each of your chosen environments a stylesheet made just for them. Not too much, not too little. Those stylesheets are lookin' good.
 
-<small>*Many thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's no-query functionality inspired this project.*</small>
+### Todo
+
+1. Better documentation, including `jacket-context()` function.
+2. Remove `lib` and Compass dependencies when `list-separator()` lands in Sass.
+
+<small>*Thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's no-query functionality inspired this project.*</small>
