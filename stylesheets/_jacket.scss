@@ -13,7 +13,6 @@ $jacket: null !default;
 // A private variable used by jacket-context().
 $jacket-context: null;
 
-
 ///////////////////////////////////////////////////////////
 // Jacket mixin
 // Takes a list of jacket values.
@@ -74,7 +73,6 @@ $jacket-context: null;
     }
   }
 }
-
 
 ///////////////////////////////////////////////////////////
 // Jacket Context function
