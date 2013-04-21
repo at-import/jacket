@@ -1,9 +1,22 @@
 ## Jacket 
 ### Dress appropriately
 
-Jacket helps orgainze your stylesheets for a multi-context build process.
-Write and maintain a master stylesheet, then output custom tailored
-stylesheets for specific browsers, mobile/desktop sites, and app builds.
+Jacket is a Sass/Compass component that helps you orgainze stylesheets for a 
+multi-context build process. Write and maintain a master stylesheet, then 
+output custom tailored stylesheets for specific browsers, mobile/desktop sites, 
+and app builds.
+
+### Installation
+
+You can install Jacket from Rubygems:
+
+`gem install jacket`
+
+with Bower:
+
+`bower install jacket`
+
+or by downloading manually and requiring with Compass.
 
 ### Usage
 
