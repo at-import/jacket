@@ -8,15 +8,19 @@ and app builds.
 
 ### Installation
 
-You can install Jacket from Rubygems:
+**Wih Rubygems**
 
-`gem install jacket`
+1. `gem install jacket`
+2. Require the gem in your config.rb  
+3. Import 'jacket' in your stylesheet.  
 
-with Bower:
+**With Bower**
 
-`bower install jacket`
+1. `bower install jacket`  
+2. Add `extensions_dir: "[your Bower component directory]"` to config.rb  
+3. Import 'jacket' in your stylesheet.  
 
-or by downloading manually and requiring with Compass.
+*Note: Ad-hoc imports are working in Compass 0.12.2, [but may be broken in 0.13.alpha](https://github.com/chriseppstein/compass/issues/1200)*
 
 ### Usage
 
