@@ -1,0 +1,126 @@
+@import "../stylesheets/jacket";
+
+/* Jacket Tests
+ * Take a look around and see what Jacket can do. */
+
+/* Single jacket context.
+   The matching jacket will be output. */
+$jacket: ios;
+
+.misty {
+  font-size: 1rem;
+
+  @include jacket(ios) {
+    content: 'My rules will be output.';
+    top: 30px;
+  }
+  @include jacket(android-2x) {
+    content: 'Mine won\'t.';
+    bottom: 30px;
+  }
+}
+
+/* Single jacket context, with selector.
+   The matching jacket will be output wrapped in the selector. */
+$jacket: anorak '.freezing';
+
+.blizzard {
+  font-size: 1rem;
+
+  @include jacket(anorak) {
+    content: 'My rules will be output.';
+    max-width: 90%;
+  }
+  @include jacket(windbreaker) {
+    content: 'Mine won\'t.';
+    max-width: none;
+  }
+}
+
+/* Multiple Jacket contexts.
+   All jackets that match one of these contexts will be output. */
+$jacket: ie7, ie8;
+
+.drizzle {
+  font-size: 1rem;
+
+  @include jacket(ie7) {
+    content: 'My rules will be output.';
+    width: 100%;
+  }
+  @include jacket(ie8) {
+    content: 'My rules will also be output.';
+    background: none;
+  }
+}
+
+
+/* Multiple arguments in a single Jacket.
+   If a jacket matches any of these contexts, the jacket will be output. */
+$jacket: main-site;
+
+.sunny {
+  font-size: 1rem;
+
+  @include jacket(main-site, sub-site) {
+    content: 'My rules will be output.';
+    margin: 1.618rem 0;
+  }
+  @include jacket(sub-site) {
+    content: 'Mine won\'t.';
+    line-height: 1.444rem;
+  }
+}
+
+/* Conditional logic with nested jackets.
+   You can create 'and' logic by nesting jackets. */
+$jacket: build-1, build-1-a;
+
+.soire {
+  font-size: 1rem;
+
+  @include jacket(build-1) {
+    @include jacket(build-1-a) {
+      content: 'My rules will be output.';
+      background-image: url(juggers.gif);
+    }
+  }
+  @include jacket(build-1) {
+    @include jacket(build-1-b) {
+      content: 'Mine won\'t.';
+      background-image: url(zardoz.gif);
+    }
+  }
+}
+
+/* A simple media query fallback mixin built on Jacket. */
+@mixin jacket-mq($media-query) {
+  @include jacket(noqueries) {
+    @content;
+  }
+  @include jacket(queries) {
+    @media #{$media-query} {
+      @content;
+    }
+  }
+}
+
+/* Output media queries */
+$jacket: standards, queries;
+
+.casual {
+  @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
+    color: green;
+    height: 0.5vh;
+  }
+}
+
+/* Output wrapped rules without queries (often called "no-queries") */
+$jacket: old-ie, noqueries '.no-q';
+
+.casual {
+  @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
+    color: green;
+    height: 0.5vh;
+  }
+}
