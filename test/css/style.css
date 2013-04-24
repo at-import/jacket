@@ -1,0 +1,60 @@
+/* Jacket Tests
+ * Take a look around and see what Jacket can do. */
+/* Single jacket context.
+   The matching jacket will be output. */
+.misty {
+  font-size: 1rem;
+  content: 'My rules will be output.';
+  top: 30px;
+}
+
+/* Single jacket context, with selector.
+   The matching jacket will be output wrapped in the selector. */
+.blizzard {
+  font-size: 1rem;
+}
+.freezing .blizzard {
+  content: 'My rules will be output.';
+  max-width: 90%;
+}
+
+/* Multiple Jacket contexts.
+   All jackets that match one of these contexts will be output. */
+.drizzle {
+  font-size: 1rem;
+  content: 'My rules will be output.';
+  width: 100%;
+  content: 'My rules will also be output.';
+  background: none;
+}
+
+/* Multiple arguments in a single Jacket.
+   If a jacket matches any of these contexts, the jacket will be output. */
+.sunny {
+  font-size: 1rem;
+  content: 'My rules will be output.';
+  margin: 1.618rem 0;
+}
+
+/* Conditional logic with nested jackets.
+   You can create 'and' logic by nesting jackets. */
+.soire {
+  font-size: 1rem;
+  content: 'My rules will be output.';
+  background-image: url(juggers.gif);
+}
+
+/* A simple media query fallback mixin built on Jacket. */
+/* Output media queries */
+@media (min-width: 30em) and (orientation: portrait) {
+  .casual {
+    color: green;
+    height: 0.5vh;
+  }
+}
+
+/* Output wrapped rules without queries (often called "no-queries") */
+.no-q .casual {
+  color: green;
+  height: 0.5vh;
+}
