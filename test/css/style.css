@@ -19,7 +19,7 @@
 }
 
 /* Multiple Jacket contexts.
-   All jackets that match one of these contexts will be output. */
+   If any jacket context matches a value the jacket will be output. */
 .drizzle {
   font-size: 1rem;
   content: 'My rules will be output.';
@@ -28,8 +28,8 @@
   background: none;
 }
 
-/* Multiple arguments in a single Jacket.
-   If a jacket matches any of these contexts, the jacket will be output. */
+/* Multiple values in a single Jacket.
+   If a jacket context matches any of the values the jacket will be output. */
 .sunny {
   font-size: 1rem;
   content: 'My rules will be output.';
@@ -44,7 +44,7 @@
   background-image: url(juggers.gif);
 }
 
-/* A simple media query fallback mixin built on Jacket. */
+/* A simple media query fallback mixin built with Jacket. */
 /* Output media queries */
 @media (min-width: 30em) and (orientation: portrait) {
   .casual {
@@ -53,8 +53,20 @@
   }
 }
 
-/* Output wrapped rules without queries (often called "no-queries") */
-.no-q .casual {
+/* Output rules without queries (probably in their own stylesheet) */
+.casual {
+  color: green;
+  height: 0.5vh;
+}
+
+/* Output media queries and wrapped rules without queries in the same stylesheet */
+@media (min-width: 30em) and (orientation: portrait) {
+  .casual {
+    color: green;
+    height: 0.5vh;
+  }
+}
+.lt-ie9 .casual {
   color: green;
   height: 0.5vh;
 }
