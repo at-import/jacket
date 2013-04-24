@@ -38,7 +38,7 @@ $jacket: anorak '.freezing';
 }
 
 /* Multiple Jacket contexts.
-   All jackets that match one of these contexts will be output. */
+   If any jacket context matches a value the jacket will be output. */
 $jacket: ie7, ie8;
 
 .drizzle {
@@ -54,9 +54,8 @@ $jacket: ie7, ie8;
   }
 }
 
-
-/* Multiple arguments in a single Jacket.
-   If a jacket matches any of these contexts, the jacket will be output. */
+/* Multiple values in a single Jacket.
+   If a jacket context matches any of the values the jacket will be output. */
 $jacket: main-site;
 
 .sunny {
@@ -93,7 +92,7 @@ $jacket: build-1, build-1-a;
   }
 }
 
-/* A simple media query fallback mixin built on Jacket. */
+/* A simple media query fallback mixin built with Jacket. */
 @mixin jacket-mq($media-query) {
   @include jacket(noqueries) {
     @content;
