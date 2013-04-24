@@ -94,18 +94,18 @@ $jacket: build-1, build-1-a;
 
 /* A simple media query fallback mixin built with Jacket. */
 @mixin jacket-mq($media-query) {
-  @include jacket(noqueries) {
-    @content;
-  }
   @include jacket(queries) {
     @media #{$media-query} {
       @content;
     }
   }
+  @include jacket(noqueries) {
+    @content;
+  }
 }
 
 /* Output media queries */
-// Note: the standards and old-ie jacket contexts aren't doing anything here. Just added for verisimilitude.
+// Note: the standards, old-ie, and main-site contexts aren't doing anything here. Just added for verisimilitude.
 $jacket: standards, queries;
 
 .casual {
@@ -115,8 +115,18 @@ $jacket: standards, queries;
   }
 }
 
-/* Output wrapped rules without queries (often called "no-queries") */
-$jacket: old-ie, noqueries '.no-q';
+/* Output rules without queries (probably in their own stylesheet) */
+$jacket: old-ie, noqueries;
+
+.casual {
+  @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
+    color: green;
+    height: 0.5vh;
+  }
+}
+
+/* Output media queries and wrapped rules without queries in the same stylesheet */
+$jacket: main-site, queries, noqueries ".lt-ie9";
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {

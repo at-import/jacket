@@ -1,6 +1,6 @@
 # File system locations
-sass_dir              = 'test'
-css_dir               = 'result'
+sass_dir              = 'scss'
+css_dir               = 'css'
 
 # Debugging
 output_style          = :expanded

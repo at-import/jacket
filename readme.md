@@ -110,7 +110,7 @@ Add a wrapping selector to a jacket context. Make sure to surround the selector 
 .drizzle {
   // universal styles
   @include jacket(mackintosh) {
-    // macintosh styles
+    // mackintosh styles
   }
 }
 ```
