@@ -105,6 +105,7 @@ $jacket: build-1, build-1-a;
 }
 
 /* Output media queries */
+// Note: the standards and old-ie jacket contexts aren't doing anything here. Just added for verisimilitude.
 $jacket: standards, queries;
 
 .casual {
