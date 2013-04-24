@@ -4,7 +4,7 @@ extension_path = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 Compass::Frameworks.register('jacket', :path => extension_path)
 
 module Jacket
-  VERSION = "0.1.0"
+  VERSION = "0.1.2"
   DATE = "2013-05-20"
 end
 
