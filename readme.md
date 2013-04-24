@@ -8,7 +8,7 @@ output custom tailored stylesheets for specific browsers, mobile/desktop sites, 
 
 ## Installation
 
-**Wih Rubygems**
+**With Ruby**
 
 1. In Terminal: `gem install jacket`
 2. Require the gem in your config.rb  
@@ -126,7 +126,7 @@ $jacket: mackintosh '.mack';
   // universal styles
 }
 .mack .drizzle {
-  // macintosh styles
+  // mackintosh styles
 }
 ```
 
@@ -146,7 +146,7 @@ Set multiple comma separated contexts in `$jacket`. If any context matches a val
 }
 ```
 
-**style.anorak.scss**
+**style.wetandcold.scss**
 
 ```scss
 $jacket: anorak, windbreaker;
