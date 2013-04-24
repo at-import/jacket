@@ -20,11 +20,11 @@ and app builds.
 2. Add `extensions_dir: "[your Bower component directory]"` to config.rb  
 3. Import 'jacket' in your stylesheet.  
 
-*Note: Ad-hoc imports are working in Compass 0.12.2, [but may be broken in 0.13.alpha](https://github.com/chriseppstein/compass/issues/1200)*
+<small>*Ad-hoc imports are working in Compass 0.12.2, [but may be broken in 0.13.alpha](https://github.com/chriseppstein/compass/issues/1200)*</small>
 
-### Usage
+### Basic Usage
 
-Write all code in a canonical stylesheet.
+Write and maintain your code in a canonical stylesheet.
 
 **style.scss**
 
@@ -32,7 +32,6 @@ Write all code in a canonical stylesheet.
 .rainy {
   // Universal rules
   font-size: 1rem;
-  width: 90%;
   
   // Styles for iOS only
   @include jacket(ios) {
@@ -40,7 +39,7 @@ Write all code in a canonical stylesheet.
     content: 'Double ristretto cortado, stat.';
   }
   // Styles for Android 2.x only
-  @include jacket(andr-2x) {
+  @include jacket(android-2x) {
     background-color: #baddad;
     content: 'I should get a new phone.';
   }
@@ -52,7 +51,7 @@ Write all code in a canonical stylesheet.
 }
 ```
 
-Then create stylesheets for each build, and tell Jacket what the weather is.
+Then create a stylesheet for each build context, and tell Jacket what the weather is.
 
 **style.ios.scss**
 
@@ -64,7 +63,6 @@ $jacket: ios;
 // Compiled result
 .rainy {
   font-size: 1rem;
-  width: 90%;
   background-color: #c0ffee;
   content: 'Double ristretto cortado, stat.';
 }
@@ -80,7 +78,6 @@ $jacket: andr-2x;
 // Compiled result
 .rainy {
   font-size: 1rem;
-  width: 90%;
   background-color: #baddad;
   content: 'I should get a new phone.';
 }
@@ -92,29 +89,46 @@ $jacket: andr-2x;
 // Set the weather 
 $jacket: ie8;
 @import 'style';
+```
 
-// Compiled result
+
+```scss
 .rainy {
   font-size: 1rem;
-  width: 90%;
   background-color: #000;
   content: 'Round three. FIGHT!';
 }
 ```
 
-You can set multiple comma separated contexts in `$jacket`.
+Now use a build process, conditional comments, or some fancy scripting to give each environment a stylesheet cut just for them. Not too much, not too little. Those stylesheets are lookin' good.
 
-**style.scss**
+### Advanced Usage
+
+You can add a wrapping selector to a jacket context, if that's your thing. Make sure to surround your selector with quotes.
 
 ```scss
-// Set the weather 
+$jacket: ie8 '.ltie9';
+@import 'style';
+
+// Compiled result
+.drizzle {
+  font-size: 1rem;
+}
+.ltie9 .drizzle {
+  background-color: #fcf;
+  content: 'These are some beautiful prefixed rules.';
+}
+```
+
+You can set multiple comma separated contexts in `$jacket`. If any context matches a value the jacket will be output.
+
+```scss
 $jacket: ios, andr-2x;
 @import 'style';
 
-// Compiled result (bad example, but you get the idea)
+// Compiled result
 .rainy {
   font-size: 1rem;
-  width: 90%;
   background-color: #c0ffee;
   content: 'Double ristretto cortado, stat.';
   background-color: #baddad;
@@ -122,32 +136,35 @@ $jacket: ios, andr-2x;
 }
 ```
 
-Or output a context wrapped in selectors, if that's your thing.
-
-**style.scss**
+You can also set multiple values for a single jacket mixin. If a context matches any value, the jacket will be output.
 
 ```scss
-// Set the weather. Make sure to surround your selector with quotes.
-$jacket: ie8 '.ltie9';
+.rainy {
+  // Universal rules
+  font-size: 1rem;
+
+  @include jacket(ie6, ie7, ie8) {
+    background-color: #ff0;
+    content: 'Well this escalated quickly.';
+  }
+}
+```
+**style.ie8.scss**
+
+```scss
+$jacket: ie8;
 @import 'style';
 
 // Compiled result
 .rainy {
   font-size: 1rem;
-  width: 90%;
-}
-
-.ltie9 .rainy {
-  background-color: #000;
-  content: 'Round three. FIGHT!';
+  background-color: #ff0;
+  content: 'Well this escalated quickly.';
 }
 ```
 
-Complex Jacket contexts like `$jacket: mdot, ie7 '.ltie9', ie8 'ltie9'` work just fine.
+Complex jacket contexts like `$jacket: mdot, ie7 '.ltie9', ie8 'ltie9'` work just fine. For advanced usage including conditional logic and a media query fallback example mixin, [check out the tests](https://github.com/Team-Sass/jacket/blob/master/test/scss/style.scss).
 
-### Strut your stuff
-
-Now use a build process, conditional comments, or some fancy scripting to give each of your chosen environments a stylesheet made just for them. Not too much, not too little. Those stylesheets are lookin' good.
 
 ### Todo
 
