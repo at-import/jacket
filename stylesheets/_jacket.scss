@@ -39,14 +39,16 @@ $jckt-context: null;
 
   // Test if a jacket context and jacket value match.
   @each $item in $jacket {
-    @if index($args, nth($item, 1)) {
+    @each $arg in $args {
+      @if index($arg, nth($item, 1)) {
 
-      // Gather wrapping selectors.
-      @if length($item) == 1 {
-        $naked: true;
-      }
-      @if length($item) == 2 {
-        $selectors: append($selectors, nth($item, 2) + ' &');
+        // Gather wrapping selectors.
+        @if length($item) == 1 {
+          $naked: true;
+        }
+        @if length($item) == 2 {
+          $selectors: append($selectors, nth($item, 2) + ' &');
+        }
       }
     }
   }
