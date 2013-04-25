@@ -36,6 +36,20 @@
   margin: 1.618rem 0;
 }
 
+/* Multiple contexts and multiple values in a single Jacket.
+   If a jacket context matches any of the values the jacket will be output. */
+.cafe-race {
+  font-size: 1rem;
+  content: 'My rules will be output.';
+  position: absolute;
+  content: 'My rules will be output, once plain, once wrapped.';
+  top: 3em;
+}
+.triumph .cafe-race {
+  content: 'My rules will be output, once plain, once wrapped.';
+  top: 3em;
+}
+
 /* Conditional logic with nested jackets.
    You can create 'and' logic by nesting jackets. */
 .soire {

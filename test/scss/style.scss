@@ -71,6 +71,27 @@ $jacket: main-site;
   }
 }
 
+/* Multiple contexts and multiple values in a single Jacket.
+   If a jacket context matches any of the values the jacket will be output. */
+$jacket: track, overcoat, mod ".triumph";
+
+.cafe-race {
+  font-size: 1rem;
+
+  @include jacket(track, tie, suit) {
+    content: 'My rules will be output.';
+    position: absolute;
+  }
+  @include jacket(suit, mod, overcoat) {
+    content: 'My rules will be output, once plain, once wrapped.';
+    top: 3em;
+  }
+  @include jacket(leather) {
+    content: 'Mine won\'t.';
+    position: fixed;
+  }
+}
+
 /* Conditional logic with nested jackets.
    You can create 'and' logic by nesting jackets. */
 $jacket: build-1, build-1-a;
