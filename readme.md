@@ -17,7 +17,7 @@ output custom tailored stylesheets for specific browsers, mobile/desktop sites, 
 **With Bower**
 
 1. In Terminal: `bower install jacket`  
-2. Add `extensions_dir: "[your Bower component directory]"` to config.rb  
+2. Add `extensions_dir = "[your Bower component directory]"` to config.rb  
 3. Import 'jacket' in your stylesheet.  
 
 ## Basic Usage
