@@ -18,7 +18,7 @@
   max-width: 90%;
 }
 
-/* Multiple Jacket contexts.
+/* Multiple jacket contexts.
    If any jacket context matches a value the jacket will be output. */
 .drizzle {
   font-size: 1rem;
@@ -28,7 +28,7 @@
   background: none;
 }
 
-/* Multiple values in a single Jacket.
+/* Multiple values in a single jacket.
    If a jacket context matches any of the values the jacket will be output. */
 .sunny {
   font-size: 1rem;
@@ -36,7 +36,7 @@
   margin: 1.618rem 0;
 }
 
-/* Multiple contexts and multiple values in a single Jacket.
+/* Multiple contexts and multiple values in a single jacket.
    If a jacket context matches any of the values the jacket will be output. */
 .cafe-race {
   font-size: 1rem;
@@ -58,7 +58,7 @@
   background-image: url(juggers.gif);
 }
 
-/* A simple media query fallback mixin built with Jacket. */
+/* A simple media query fallback mixin built with jacket. */
 /* Output media queries */
 @media (min-width: 30em) and (orientation: portrait) {
   .casual {
