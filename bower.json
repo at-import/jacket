@@ -4,6 +4,7 @@
   "main": "stylesheets/_jacket.scss",
   "ignore": [
     "node_modules",
-    "components"
+    "components",
+    "test"
   ]
 }
