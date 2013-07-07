@@ -140,6 +140,17 @@ Now you can serve these custom tailored stylesheets to the correct context with 
 
 Check out the [tests](https://github.com/Team-Sass/jacket/tree/master/test) for more examples, including condtional logic with nested jackets and a simple media query fallback mixin.
 
+## Contribute
 
+Report bugs and feature proposals in the [Github issue tracker](https://github.com/Team-Sass/jacket/issues). In lieu of a formal styleguide, take care to maintain the existing coding style. 
+
+## Release History
+
+0.1.4, July 7, 2013: Add jacket() function, rewrite docs and tests.
+0.1.0, April 21, 2013: Initial release.
+
+## License
+
+[BSD-NEW](http://en.wikipedia.org/wiki/BSD_License)
 
 <small>*Thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's no-query functionality inspired this project.*</small>
