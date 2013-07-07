@@ -1,65 +1,83 @@
 /* Jacket Tests
  * Take a look around and see what Jacket can do. */
 /* Single jacket context.
-   The matching jacket will be output. */
+   The matching jacket will be output.
+   $jacket: ios;  */
 .misty {
+  /* Universal rules */
   font-size: 1rem;
-  content: 'My rules will be output.';
+  /* jacket(ios) rules */
   top: 30px;
+  /* jacket(android-2x) rules */
 }
 
 /* Single jacket context, with selector.
-   The matching jacket will be output wrapped in the selector. */
+   The matching jacket will be output wrapped in the selector.
+   $jacket: anorak ".freezing";  */
 .blizzard {
+  /* Universal rules */
   font-size: 1rem;
+  /* jacket(anorak) rules */
+  /* jacket(windbreaker) rules */
 }
 .freezing .blizzard {
-  content: 'My rules will be output.';
   max-width: 90%;
 }
 
 /* Multiple jacket contexts.
-   If any jacket context matches a value the jacket will be output. */
+   If any jacket context matches a value the jacket will be output.
+   $jacket: ie7, ie8;  */
 .drizzle {
+  /* Universal rules */
   font-size: 1rem;
-  content: 'My rules will be output.';
+  /* jacket(ie7) rules */
   width: 100%;
+  /* jacket(ie8) rules */
   content: 'My rules will also be output.';
   background: none;
 }
 
 /* Multiple values in a single jacket.
-   If a jacket context matches any of the values the jacket will be output. */
+   If a jacket context matches any of the values the jacket will be output.
+   $jacket: main-site; */
 .sunny {
+  /* Universal rules */
   font-size: 1rem;
-  content: 'My rules will be output.';
+  /* jacket(main-site, sub-site) rules */
   margin: 1.618rem 0;
+  /* jacket(sub-site) rules */
 }
 
 /* Multiple contexts and multiple values in a single jacket.
-   If a jacket context matches any of the values the jacket will be output. */
+   If a jacket context matches any of the values the jacket will be output.
+   $jacket: track, overcoat, mod ".triumph"; */
 .cafe-race {
+  /* Universal rules */
   font-size: 1rem;
-  content: 'My rules will be output.';
+  /* jacket(track, tie, suit) rules */
   position: absolute;
-  content: 'My rules will be output, once plain, once wrapped.';
+  /* jacket(suit, mod, overcoat) rules */
   top: 3em;
+  /* jacket(leather) rules */
 }
 .triumph .cafe-race {
-  content: 'My rules will be output, once plain, once wrapped.';
   top: 3em;
 }
 
 /* Conditional logic with nested jackets.
-   You can create 'and' logic by nesting jackets. */
+   You can create 'and' logic by nesting jackets.
+   $jacket: build-1, build-1-a;  */
 .soire {
   font-size: 1rem;
-  content: 'My rules will be output.';
-  background-image: url(juggers.gif);
+  /* jacket(build-1) { jacket(build-1-a) {} } rules */
+  background-image: url(titans.gif);
+  /* jacket(build-1) { jacket(build-1-b) {} } rules */
 }
 
 /* A simple media query fallback mixin built with jacket. */
-/* Output media queries */
+/* Output media queries
+   $jacket: standards, queries;
+ */
 @media (min-width: 30em) and (orientation: portrait) {
   .casual {
     color: green;
@@ -67,13 +85,17 @@
   }
 }
 
-/* Output rules without queries (probably in their own stylesheet) */
+/* Output rules without queries (probably in their own stylesheet)
+   $jacket: old-ie, noqueries;
+ */
 .casual {
   color: green;
   height: 0.5vh;
 }
 
-/* Output media queries and wrapped rules without queries in the same stylesheet */
+/* Output media queries and wrapped rules without queries in the same stylesheet
+   $jacket: main-site, queries, noqueries ".lt-ie9";
+*/
 @media (min-width: 30em) and (orientation: portrait) {
   .casual {
     color: green;

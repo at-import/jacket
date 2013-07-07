@@ -3,111 +3,124 @@
 /* Jacket Tests
  * Take a look around and see what Jacket can do. */
 
-/* Single jacket context.
-   The matching jacket will be output. */
 $jacket: ios;
+/* Single jacket context.
+   The matching jacket will be output.
+   $jacket: #{$jacket};  */
 
 .misty {
+  /* Universal rules */
   font-size: 1rem;
 
+  /* jacket(ios) rules */
   @include jacket(ios) {
-    content: 'My rules will be output.';
     top: 30px;
   }
+  /* jacket(android-2x) rules */
   @include jacket(android-2x) {
-    content: 'Mine won\'t.';
     bottom: 30px;
   }
 }
 
-/* Single jacket context, with selector.
-   The matching jacket will be output wrapped in the selector. */
 $jacket: anorak '.freezing';
+/* Single jacket context, with selector.
+   The matching jacket will be output wrapped in the selector.
+   $jacket: #{$jacket};  */
 
 .blizzard {
+  /* Universal rules */
   font-size: 1rem;
 
+  /* jacket(anorak) rules */
   @include jacket(anorak) {
-    content: 'My rules will be output.';
     max-width: 90%;
   }
+  /* jacket(windbreaker) rules */
   @include jacket(windbreaker) {
-    content: 'Mine won\'t.';
     max-width: none;
   }
 }
 
-/* Multiple jacket contexts.
-   If any jacket context matches a value the jacket will be output. */
 $jacket: ie7, ie8;
+/* Multiple jacket contexts.
+   If any jacket context matches a value the jacket will be output.
+   $jacket: #{$jacket};  */
 
 .drizzle {
+  /* Universal rules */
   font-size: 1rem;
 
+  /* jacket(ie7) rules */
   @include jacket(ie7) {
-    content: 'My rules will be output.';
     width: 100%;
   }
+  /* jacket(ie8) rules */
   @include jacket(ie8) {
     content: 'My rules will also be output.';
     background: none;
   }
 }
 
-/* Multiple values in a single jacket.
-   If a jacket context matches any of the values the jacket will be output. */
 $jacket: main-site;
+/* Multiple values in a single jacket.
+   If a jacket context matches any of the values the jacket will be output.
+   $jacket: #{$jacket}; */
 
 .sunny {
+  /* Universal rules */
   font-size: 1rem;
 
+  /* jacket(main-site, sub-site) rules */
   @include jacket(main-site, sub-site) {
-    content: 'My rules will be output.';
     margin: 1.618rem 0;
   }
+
+  /* jacket(sub-site) rules */
   @include jacket(sub-site) {
-    content: 'Mine won\'t.';
     line-height: 1.444rem;
   }
 }
 
-/* Multiple contexts and multiple values in a single jacket.
-   If a jacket context matches any of the values the jacket will be output. */
 $jacket: track, overcoat, mod ".triumph";
+/* Multiple contexts and multiple values in a single jacket.
+   If a jacket context matches any of the values the jacket will be output.
+   $jacket: #{$jacket}; */
 
 .cafe-race {
+  /* Universal rules */
   font-size: 1rem;
 
+  /* jacket(track, tie, suit) rules */
   @include jacket(track, tie, suit) {
-    content: 'My rules will be output.';
     position: absolute;
   }
+  /* jacket(suit, mod, overcoat) rules */
   @include jacket(suit, mod, overcoat) {
-    content: 'My rules will be output, once plain, once wrapped.';
     top: 3em;
   }
+  /* jacket(leather) rules */
   @include jacket(leather) {
-    content: 'Mine won\'t.';
     position: fixed;
   }
 }
 
-/* Conditional logic with nested jackets.
-   You can create 'and' logic by nesting jackets. */
 $jacket: build-1, build-1-a;
+/* Conditional logic with nested jackets.
+   You can create 'and' logic by nesting jackets.
+   $jacket: #{$jacket};  */
 
 .soire {
   font-size: 1rem;
 
+  /* jacket(build-1) { jacket(build-1-a) {} } rules */
   @include jacket(build-1) {
     @include jacket(build-1-a) {
-      content: 'My rules will be output.';
-      background-image: url(juggers.gif);
+      background-image: url(titans.gif);
     }
   }
+  /* jacket(build-1) { jacket(build-1-b) {} } rules */
   @include jacket(build-1) {
     @include jacket(build-1-b) {
-      content: 'Mine won\'t.';
       background-image: url(zardoz.gif);
     }
   }
@@ -125,9 +138,10 @@ $jacket: build-1, build-1-a;
   }
 }
 
-/* Output media queries */
-// Note: the standards, old-ie, and main-site contexts aren't doing anything here. Just added for verisimilitude.
 $jacket: standards, queries;
+/* Output media queries
+   $jacket: #{$jacket};
+ */
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
@@ -136,8 +150,10 @@ $jacket: standards, queries;
   }
 }
 
-/* Output rules without queries (probably in their own stylesheet) */
 $jacket: old-ie, noqueries;
+/* Output rules without queries (probably in their own stylesheet)
+   $jacket: #{$jacket};
+ */
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
@@ -146,8 +162,10 @@ $jacket: old-ie, noqueries;
   }
 }
 
-/* Output media queries and wrapped rules without queries in the same stylesheet */
 $jacket: main-site, queries, noqueries ".lt-ie9";
+/* Output media queries and wrapped rules without queries in the same stylesheet
+   $jacket: #{$jacket};
+*/
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
