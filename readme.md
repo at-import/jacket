@@ -2,8 +2,7 @@
 
 **Conditional Styles with Sass. Dress you CSS appropriately.**
 
-Jacket is a Compass component that prints and hides styles based on a list of context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.
-
+Jacket is a Compass component that prints and hides styles based on context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.
 
 ## Installation
 
@@ -23,30 +22,66 @@ Until Sass 3.3 is released Jacket requires Compass.
 
 ## Basic Usage
 
+### The jacket() mixin
+
+Use the jacket mixin to conditionally output blocks of code. If any context matches a context in the `$jacket` variable, your conditional code will be output. If the context has a wrapping selector associated with it, the code block will be wrapped in the wrapping selector.
+
+```scss
+jacket($contexts...) {
+  // Conditional code
+}
+```
+
+### The jacket() function
+
+Use the jacket function to conditionally output values. If any context matches a context in the `$jacket` variable, the value will be output.
+
+```scss
+property: jacket($value, $contexts...);
+```
+
+### The $jacket variable
+
+Use the `$jacket` variable to set a stylesheet's context. Each context can have an optional wrapping selector.
+
+```
+$jacket: context, context '.wrapping-selector', context;
+```
+
+
+### Examples
+
 Write your code in a master stylesheet.
 
 **style.scss**
 
 ```scss
-.rainy {
+.example {
   // Universal rules
   font-size: 1rem;
-  
-  // Styles for iOS only
-  @include jacket(ios) {
-    background-color: #c0ffee;
-    content: 'Double ristretto cortado, stat.';
-  }
-  // Styles for Android 2.x only
-  @include jacket(android-2x) {
-    background-color: #baddad;
-    content: 'I should get a new phone.';
-  }
-  // Styles for ie8 only
+  padding:0 20px;
+}
+```
+
+Add context specific code wrapped in the jacket mixin or the jacket function. If any jacket mixin context matches a value in the `$jacket` variable, the code will be output.
+
+```scss
+.example {
+  // Universal rules
+  font-size: 1rem;
+  padding:0 20px;
+
+  // Conditional styles for an ie8 stylesheet
   @include jacket(ie8) {
-    background-color: #000;
-    content: 'Round three. FIGHT!';
+    float: left;
   }
+
+  // Conditional styles for an iOS and android app build of the stylesheet
+  @include jacket(ios, android) {
+    background-color: #c0ffee;
+  }
+
+  line-height: jacket(1.5, ios, site) jacket(1.3, android);
 }
 ```
 
@@ -55,145 +90,56 @@ Then create a stylesheet for each build context, and tell Jacket what the weathe
 **style.ios.scss**
 
 ```scss
-// Set the weather 
 $jacket: ios;
 @import 'style';
 
 // Compiles to
-.rainy {
+.example {
   font-size: 1rem;
+  padding: 0 20px;
   background-color: #c0ffee;
-  content: 'Double ristretto cortado, stat.';
+  line-height: 1.5;
 }
 ```
 
-**style.android-2x.scss**
+**style.android.scss**
 
 ```scss
 // Set the weather 
-$jacket: android-2x;
+$jacket: android;
 @import 'style';
 
 // Compiles to
-.rainy {
+.example {
   font-size: 1rem;
-  background-color: #baddad;
-  content: 'I should get a new phone.';
+  padding: 0 20px;
+  background-color: #c0ffee;
+  line-height: 1.3;
 }
 ```
 
-**style.ie.scss**
+**style.ie8.scss**
 
 ```scss
-// Set the weather 
-$jacket: ie8;
+$jacket: ie8 '.ie8';
 @import 'style';
 
 //Compiles to:
-.rainy {
+.example {
   font-size: 1rem;
-  background-color: #000;
-  content: 'Round three. FIGHT!';
+  padding: 0 20px;
+}
+.ie8 .example {
+  float: left;
 }
 ```
 
-Now use an automated build process, conditional comments, or some fancy scripting to give each of your chosen environments a stylesheet made just for them. Not too much, not too little. Those stylesheets are lookin' good.
+Now you can serve these custom tailored stylesheets to the correct context with conditional comments, an automated build process, or some javascript. Not too much, not too little. Those stylesheets are lookin' good.
 
 ## Advanced Usage
 
-You want to take it to the next level? Yeah, we have another level you can take it to.
-
-#### Wrapping selector
-
-Add a wrapping selector to a jacket context. Make sure to surround the selector with quotes.
-
-```scss
-.drizzle {
-  // universal styles
-  @include jacket(mackintosh) {
-    // mackintosh styles
-  }
-}
-```
-
-**style.mackintosh.scss**
-
-```scss
-$jacket: mackintosh '.mack';
-@import 'style';
-
-// Compiles to 
-.drizzle {
-  // universal styles
-}
-.mack .drizzle {
-  // mackintosh styles
-}
-```
-
-#### Multiple contexts in one stylesheet
-
-Set multiple comma separated contexts in `$jacket`. If any context matches a value that jacket will be output.
-
-```scss
-.thunderstorm {
-  // universal styles
-  @include jacket(anorak) {
-    // anorak styles
-  }
-  @include jacket(windbreaker) {
-    // windbreaker styles
-  }
-}
-```
-
-**style.wetandcold.scss**
-
-```scss
-$jacket: anorak, windbreaker;
-@import 'style';
-
-// Compiles to
-.thunderstorm {
-  // universal styles
-  // anorak styles
-  // windbreaker styles
-}
-```
-
-#### Jackets that match multiple contexts
-
-Set multiple values for a single jacket mixin. If a context matches any value, the jacket will be output.
-
-```scss
-.soiree {
-  // universal styles
-  @include jacket(suit, coat, tie) {
-    // styles that should be used with any suit, coat, or tie
-  }
-}
-```
-**style.tie.scss**
-
-```scss
-$jacket: tie;
-@import 'style';
-
-// Compiled result
-.soiree {
-  // universal styles
-  // styles that should be used with any suit, coat, or tie
-}
-```
-
-#### And more...
-
 Check out the [tests](https://github.com/Team-Sass/jacket/tree/master/test) for more examples, including condtional logic with nested jackets and a simple media query fallback mixin.
 
-## Todo
 
-1. Document `jacket-context()` function.
-2. Set up automated testing framework.
-4. Remove `lib` and Compass dependencies when `list-separator()` lands in Sass.
 
 <small>*Thanks to [Breakpoint](https://github.com/Team-Sass/breakpoint), who's no-query functionality inspired this project.*</small>
