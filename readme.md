@@ -1,12 +1,13 @@
 # Jacket 
 
-**Dress your css appropriately.**
+**Conditional Styles with Sass. Dress you CSS appropriately.**
 
-Jacket is a Sass/Compass component that helps you orgainze stylesheets for a 
-multi-context build process. Write and maintain a master stylesheet, then 
-output custom tailored stylesheets for specific browsers, mobile/desktop sites, and app builds.
+Jacket is a Compass component that prints and hides styles based on a list of context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.
+
 
 ## Installation
+
+Until Sass 3.3 is released Jacket requires Compass.
 
 **With Ruby**
 

@@ -1,26 +1,27 @@
 ///////////////////////////////////////////////////////////
 // Jacket
-// Dress appropriately
+// Conditional Styles with Sass. Dress you CSS appropriately.
 ///////////////////////////////////////////////////////////
 
-// Jacket is a Sass/Compass component that helps you orgainze stylesheets for a
-// multi-context build process. Write and maintain a master stylesheet, then
-// output custom tailored stylesheets for specific browsers, mobile/desktop
-// sites, and app builds.
+// Jacket is a Compass component that prints and hides styles based on a list
+// of context variables you set in your stylesheet. Write and maintain a master
+// stylesheet, then output custom tailored stylesheets for modern and legacy
+// browsers, site and app builds, or any other context you can think of.
 
 ///////////////////////////////////////////////////////////
 // Settings variables
 ///////////////////////////////////////////////////////////
 
-// A list of jacket contexts to print in the stylesheet.
+// Default list of jacket contexts.
 $jacket: null !default;
 
-// A private variable used by jacket-context().
+// Private variable used by jacket-context().
 $jckt-context: null;
 
 ///////////////////////////////////////////////////////////
 // Jacket mixin
-// Takes a list of jacket values.
+// Takes a list of jacket contexts.
+// Outputs a block of styles if a context is set.
 ///////////////////////////////////////////////////////////
 @mixin jacket($args...) {
 
@@ -82,8 +83,8 @@ $jckt-context: null;
 
 ///////////////////////////////////////////////////////////
 // Jacket Context function
-// Takes a jacket value. Use when code inside a jacket
-// needs to know if a specific jacket value is set.
+// Takes a jacket context value. Use when code inside a jacket
+// needs to know if a specific jacket context is set.
 ///////////////////////////////////////////////////////////
 @function jacket-context($arg) {
   @return if(index($jckt-context, $arg), true, false);
