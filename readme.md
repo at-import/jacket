@@ -2,7 +2,7 @@
 
 **Conditional Styles with Sass. Dress you CSS appropriately.**
 
-Jacket is a Compass component that prints and hides styles based on context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.
+Jacket is a Compass component that prints or hides styles based on context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.
 
 ## Installation
 
@@ -24,7 +24,7 @@ Until Sass 3.3 is released Jacket requires Compass.
 
 ### The jacket() mixin
 
-Use the jacket mixin to conditionally output blocks of code. If any context matches a context in the `$jacket` variable, your conditional code will be output. If the context has a wrapping selector associated with it, the code block will be wrapped in the wrapping selector.
+Use the jacket mixin to conditionally output blocks of code. If any context in the jacket mixin matches a context in the `$jacket` variable, your conditional code will be output. If the `$jacket` variable context has a wrapping selector associated with it, the code block will be wrapped in the wrapping selector.
 
 ```scss
 jacket($contexts...) {
@@ -34,7 +34,7 @@ jacket($contexts...) {
 
 ### The jacket() function
 
-Use the jacket function to conditionally output values. If any context matches a context in the `$jacket` variable, the value will be output.
+Use the jacket function to conditionally output values. If any context in the jacket function matches a context in the `$jacket` variable, the value will be output.
 
 ```scss
 property: jacket($value, $contexts...);
@@ -42,7 +42,7 @@ property: jacket($value, $contexts...);
 
 ### The $jacket variable
 
-Use the `$jacket` variable to set a stylesheet's context. Each context can have an optional wrapping selector.
+Use the `$jacket` variable to set a stylesheet's context. You can set multiple contexts in a comma separated list. Each context can have an optional wrapping selector associated with it.
 
 ```
 $jacket: context, context '.wrapping-selector', context;
@@ -63,7 +63,7 @@ Write your code in a master stylesheet.
 }
 ```
 
-Add context specific code wrapped in the jacket mixin or the jacket function. If any jacket mixin context matches a value in the `$jacket` variable, the code will be output.
+Wrap context specific code in the jacket mixin or the jacket function.
 
 ```scss
 .example {
@@ -121,7 +121,7 @@ $jacket: android;
 **style.ie8.scss**
 
 ```scss
-$jacket: ie8 '.ie8';
+$jacket: legacy, ie8 '.ie8';
 @import 'style';
 
 //Compiles to:
@@ -134,7 +134,7 @@ $jacket: ie8 '.ie8';
 }
 ```
 
-Now you can serve these custom tailored stylesheets to the correct context with conditional comments, an automated build process, or some javascript. Not too much, not too little. Those stylesheets are lookin' good.
+Now you can serve these custom tailored stylesheets to the correct context with conditional comments, an automated build process, or some javascript. Not too much, not too little. Your stylesheets are lookin' good.
 
 ## Advanced Usage
 
@@ -146,7 +146,7 @@ Report bugs and feature proposals in the [Github issue tracker](https://github.c
 
 ## Release History
 
-0.1.4, July 7, 2013: Add jacket() function, rewrite docs and tests.
+0.1.4, July 7, 2013: Add jacket() function, rewrite docs and tests.  
 0.1.0, April 21, 2013: Initial release.
 
 ## License
