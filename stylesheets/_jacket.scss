@@ -3,8 +3,8 @@
 // Conditional Styles with Sass. Dress you CSS appropriately.
 ///////////////////////////////////////////////////////////
 
-// Jacket is a Compass component that prints and hides styles based on a list
-// of context variables you set in your stylesheet. Write and maintain a master
+// Jacket is a Compass component that prints and hides styles based on
+// context variables you set in your stylesheet. Write and maintain a master
 // stylesheet, then output custom tailored stylesheets for modern and legacy
 // browsers, site and app builds, or any other context you can think of.
 
@@ -23,7 +23,7 @@ $jckt-context: null;
 // Takes a list of jacket contexts.
 // Outputs a block of styles if a context is set.
 ///////////////////////////////////////////////////////////
-@mixin jacket($args...) {
+@mixin jacket($contexts...) {
 
   $naked: false;
   $selectors: ();
@@ -31,7 +31,7 @@ $jckt-context: null;
   $selector-string: '';
 
   // Set the global context variable.
-  $jckt-context: $args;
+  $jckt-context: $contexts;
 
   // If jacket is a single context and selector list, encapsulate.
   @if list-separator($jacket) == 'space' {
@@ -40,8 +40,8 @@ $jckt-context: null;
 
   // Test if a jacket context and jacket value match.
   @each $item in $jacket {
-    @each $arg in $args {
-      @if index($arg, nth($item, 1)) {
+    @each $context in $contexts {
+      @if index($context, nth($item, 1)) {
 
         // Gather wrapping selectors.
         @if length($item) == 1 {
@@ -86,11 +86,11 @@ $jckt-context: null;
 // Takes a list of jacket contexts.
 // Outputs a value if a context is set.
 ///////////////////////////////////////////////////////////
-@function jacket($value, $args...) {
+@function jacket($value, $contexts...) {
 
   @each $item in $jacket {
-    @each $arg in $args {
-      @if index($arg, nth($item, 1)) {
+    @each $context in $contexts {
+      @if index($context, nth($item, 1)) {
         // If the weather is right, return the value!
         @return $value;
       }
@@ -107,6 +107,6 @@ $jckt-context: null;
 // Takes a jacket context value. Use when code inside a jacket
 // needs to know if a specific jacket context is set.
 ///////////////////////////////////////////////////////////
-@function jacket-context($arg) {
-  @return if(index($jckt-context, $arg), true, false);
+@function jacket-context($context) {
+  @return if(index($jckt-context, $context), true, false);
 }
