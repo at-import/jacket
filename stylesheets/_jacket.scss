@@ -82,6 +82,27 @@ $jckt-context: null;
 }
 
 ///////////////////////////////////////////////////////////
+// Jacket function
+// Takes a list of jacket contexts.
+// Outputs a value if a context is set.
+///////////////////////////////////////////////////////////
+@function jacket($value, $args...) {
+
+  @each $item in $jacket {
+    @each $arg in $args {
+      @if index($arg, nth($item, 1)) {
+        // If the weather is right, return the value!
+        @return $value;
+      }
+    }
+  }
+
+  // Else return null. If null is the only value for a selector, the selector
+  // will not be printed.
+  @return null;
+}
+
+///////////////////////////////////////////////////////////
 // Jacket Context function
 // Takes a jacket context value. Use when code inside a jacket
 // needs to know if a specific jacket context is set.
