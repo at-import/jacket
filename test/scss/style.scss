@@ -9,14 +9,14 @@ $jacket: ios;
    $jacket: #{$jacket};  */
 
 .misty {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
 
-  /* jacket(ios) rules */
+  /* jacket(ios) */
   @include jacket(ios) {
     top: 30px;
   }
-  /* jacket(android-2x) rules */
+  /* jacket(android-2x) */
   @include jacket(android-2x) {
     bottom: 30px;
   }
@@ -28,14 +28,14 @@ $jacket: anorak '.freezing';
    $jacket: #{$jacket};  */
 
 .blizzard {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
 
-  /* jacket(anorak) rules */
+  /* jacket(anorak) */
   @include jacket(anorak) {
     max-width: 90%;
   }
-  /* jacket(windbreaker) rules */
+  /* jacket(windbreaker) */
   @include jacket(windbreaker) {
     max-width: none;
   }
@@ -47,16 +47,16 @@ $jacket: ie7, ie8;
    $jacket: #{$jacket};  */
 
 .drizzle {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
 
-  /* jacket(ie7) rules */
+  /* jacket(ie7) */
   @include jacket(ie7) {
     width: 100%;
   }
-  /* jacket(ie8) rules */
+  /* jacket(ie8) */
   @include jacket(ie8) {
-    content: 'My rules will also be output.';
+    content: 'My will also be output.';
     background: none;
   }
 }
@@ -67,15 +67,15 @@ $jacket: main-site;
    $jacket: #{$jacket}; */
 
 .sunny {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
 
-  /* jacket(main-site, sub-site) rules */
+  /* jacket(main-site, sub-site) */
   @include jacket(main-site, sub-site) {
     margin: 1.618rem 0;
   }
 
-  /* jacket(sub-site) rules */
+  /* jacket(sub-site) */
   @include jacket(sub-site) {
     line-height: 1.444rem;
   }
@@ -87,18 +87,18 @@ $jacket: track, overcoat, mod ".triumph";
    $jacket: #{$jacket}; */
 
 .cafe-race {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
 
-  /* jacket(track, tie, suit) rules */
+  /* jacket(track, tie, suit) */
   @include jacket(track, tie, suit) {
     position: absolute;
   }
-  /* jacket(suit, mod, overcoat) rules */
+  /* jacket(suit, mod, overcoat) */
   @include jacket(suit, mod, overcoat) {
     top: 3em;
   }
-  /* jacket(leather) rules */
+  /* jacket(leather) */
   @include jacket(leather) {
     position: fixed;
   }
@@ -112,13 +112,13 @@ $jacket: build-1, build-1-a;
 .soire {
   font-size: 1rem;
 
-  /* jacket(build-1) { jacket(build-1-a) {} } rules */
+  /* jacket(build-1) { jacket(build-1-a) {} } */
   @include jacket(build-1) {
     @include jacket(build-1-a) {
       background-image: url(titans.gif);
     }
   }
-  /* jacket(build-1) { jacket(build-1-b) {} } rules */
+  /* jacket(build-1) { jacket(build-1-b) {} } */
   @include jacket(build-1) {
     @include jacket(build-1-b) {
       background-image: url(zardoz.gif);
@@ -140,8 +140,7 @@ $jacket: build-1, build-1-a;
 
 $jacket: standards, queries;
 /* Output media queries
-   $jacket: #{$jacket};
- */
+   $jacket: #{$jacket}; */
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
@@ -152,8 +151,7 @@ $jacket: standards, queries;
 
 $jacket: old-ie, noqueries;
 /* Output rules without queries (probably in their own stylesheet)
-   $jacket: #{$jacket};
- */
+   $jacket: #{$jacket}; */
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
@@ -164,12 +162,30 @@ $jacket: old-ie, noqueries;
 
 $jacket: main-site, queries, noqueries ".lt-ie9";
 /* Output media queries and wrapped rules without queries in the same stylesheet
-   $jacket: #{$jacket};
-*/
+   $jacket: #{$jacket}; */
 
 .casual {
   @include jacket-mq('(min-width: 30em) and (orientation: portrait)') {
     color: green;
     height: 0.5vh;
   }
+}
+
+$jacket: space-theme;
+/* jacket() function.
+   If a jacket context matches, the value will be output.
+   $jacket: #{$jacket}; */
+
+.container {
+  background-color: #222;
+  /* background-image: jacket(url(../universe-bg.png), space-theme); */
+  background-image: jacket(url(../universe-bg.png), space-theme);
+}
+
+$jacket: simple;
+/* $jacket: #{$jacket}; */
+.container {
+  background-color: #222;
+  /* background-image: jacket(url(../universe-bg.png), space-theme); */
+  background-image: jacket(url(../universe-bg.png), space-theme);
 }

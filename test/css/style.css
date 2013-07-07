@@ -4,21 +4,21 @@
    The matching jacket will be output.
    $jacket: ios;  */
 .misty {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
-  /* jacket(ios) rules */
+  /* jacket(ios) */
   top: 30px;
-  /* jacket(android-2x) rules */
+  /* jacket(android-2x) */
 }
 
 /* Single jacket context, with selector.
    The matching jacket will be output wrapped in the selector.
    $jacket: anorak ".freezing";  */
 .blizzard {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
-  /* jacket(anorak) rules */
-  /* jacket(windbreaker) rules */
+  /* jacket(anorak) */
+  /* jacket(windbreaker) */
 }
 .freezing .blizzard {
   max-width: 90%;
@@ -28,12 +28,12 @@
    If any jacket context matches a value the jacket will be output.
    $jacket: ie7, ie8;  */
 .drizzle {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
-  /* jacket(ie7) rules */
+  /* jacket(ie7) */
   width: 100%;
-  /* jacket(ie8) rules */
-  content: 'My rules will also be output.';
+  /* jacket(ie8) */
+  content: 'My will also be output.';
   background: none;
 }
 
@@ -41,24 +41,24 @@
    If a jacket context matches any of the values the jacket will be output.
    $jacket: main-site; */
 .sunny {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
-  /* jacket(main-site, sub-site) rules */
+  /* jacket(main-site, sub-site) */
   margin: 1.618rem 0;
-  /* jacket(sub-site) rules */
+  /* jacket(sub-site) */
 }
 
 /* Multiple contexts and multiple values in a single jacket.
    If a jacket context matches any of the values the jacket will be output.
    $jacket: track, overcoat, mod ".triumph"; */
 .cafe-race {
-  /* Universal rules */
+  /* Universal */
   font-size: 1rem;
-  /* jacket(track, tie, suit) rules */
+  /* jacket(track, tie, suit) */
   position: absolute;
-  /* jacket(suit, mod, overcoat) rules */
+  /* jacket(suit, mod, overcoat) */
   top: 3em;
-  /* jacket(leather) rules */
+  /* jacket(leather) */
 }
 .triumph .cafe-race {
   top: 3em;
@@ -69,15 +69,14 @@
    $jacket: build-1, build-1-a;  */
 .soire {
   font-size: 1rem;
-  /* jacket(build-1) { jacket(build-1-a) {} } rules */
+  /* jacket(build-1) { jacket(build-1-a) {} } */
   background-image: url(titans.gif);
-  /* jacket(build-1) { jacket(build-1-b) {} } rules */
+  /* jacket(build-1) { jacket(build-1-b) {} } */
 }
 
 /* A simple media query fallback mixin built with jacket. */
 /* Output media queries
-   $jacket: standards, queries;
- */
+   $jacket: standards, queries; */
 @media (min-width: 30em) and (orientation: portrait) {
   .casual {
     color: green;
@@ -86,16 +85,14 @@
 }
 
 /* Output rules without queries (probably in their own stylesheet)
-   $jacket: old-ie, noqueries;
- */
+   $jacket: old-ie, noqueries; */
 .casual {
   color: green;
   height: 0.5vh;
 }
 
 /* Output media queries and wrapped rules without queries in the same stylesheet
-   $jacket: main-site, queries, noqueries ".lt-ie9";
-*/
+   $jacket: main-site, queries, noqueries ".lt-ie9"; */
 @media (min-width: 30em) and (orientation: portrait) {
   .casual {
     color: green;
@@ -105,4 +102,19 @@
 .lt-ie9 .casual {
   color: green;
   height: 0.5vh;
+}
+
+/* jacket() function.
+   If a jacket context matches, the value will be output.
+   $jacket: space-theme; */
+.container {
+  background-color: #222;
+  /* background-image: jacket(url(../universe-bg.png), space-theme); */
+  background-image: url(../universe-bg.png);
+}
+
+/* $jacket: simple; */
+.container {
+  background-color: #222;
+  /* background-image: jacket(url(../universe-bg.png), space-theme); */
 }
