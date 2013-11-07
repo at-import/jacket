@@ -1,6 +1,6 @@
 # Jacket 
 
-**Conditional Styles with Sass. Dress you CSS appropriately.**
+**Conditional Styles with Sass. Dress your CSS appropriately.**
 
 Jacket is a Compass component that prints or hides styles based on context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.
 
