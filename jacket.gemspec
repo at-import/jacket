@@ -28,6 +28,6 @@ Gem::Specification.new do |s|
   s.files += Dir.glob("stylesheets/**/*.*")
 
   # Dependencies
-  s.add_dependency 'sass',    '>=3.2.0'
-  s.add_dependency 'compass', ">= 0.12.2"
+  s.add_dependency 'sass',    '~> 3.2.0.rc.2'
+  s.add_dependency 'compass', "~> 1.0.0.alpha.17"
 end
