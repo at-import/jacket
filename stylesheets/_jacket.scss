@@ -31,11 +31,11 @@ $jckt-context: null;
   $selector-string: '';
 
   // Set the global context variable.
-  $jckt-context: $contexts;
+  $jckt-context: $contexts !global;
 
   // If jacket is a single context and selector list, encapsulate.
   @if list-separator($jacket) == 'space' {
-    $jacket: $jacket, null;
+    $jacket: $jacket, null !global;
   }
 
   // Test if a jacket context and jacket value match.
