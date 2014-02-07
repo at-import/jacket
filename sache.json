@@ -1,0 +1,5 @@
+{
+  "name": "Jacket",
+  "description": "Jacket is a Compass component that prints or hides styles based on context variables you set in your stylesheet. Write and maintain a master stylesheet, then output custom tailored stylesheets for modern and legacy browsers, site and app builds, or any other context you can think of.",
+  "tags": ["conditional-styles", "code-quality", "performance"]
+}
