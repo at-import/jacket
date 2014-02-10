@@ -1,6 +1,6 @@
 {
   "name": "jacket",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "stylesheets/_jacket.scss",
   "ignore": [
     "node_modules",
