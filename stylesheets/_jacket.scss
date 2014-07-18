@@ -15,23 +15,17 @@
 // Default list of jacket contexts.
 $jacket: null !default;
 
-// Private variable used by jacket-context().
-$jckt-context: null;
-
 ///////////////////////////////////////////////////////////
 // Jacket mixin
 // Takes a list of jacket contexts.
 // Outputs a block of styles if a context is set.
 ///////////////////////////////////////////////////////////
 @mixin jacket($contexts...) {
-
+	
   $naked: false;
   $selectors: ();
   $filtered: ();
   $selector-string: '';
-
-  // Set the global context variable.
-  $jckt-context: $contexts !global;
 
   // If jacket is a single context and selector list, encapsulate.
   @if list-separator($jacket) == 'space' {
@@ -100,13 +94,4 @@ $jckt-context: null;
   // Else return null. If null is the only value for a selector, the selector
   // will not be printed.
   @return null;
-}
-
-///////////////////////////////////////////////////////////
-// Jacket Context function
-// Takes a jacket context value. Use when code inside a jacket
-// needs to know if a specific jacket context is set.
-///////////////////////////////////////////////////////////
-@function jacket-context($context) {
-  @return if(index($jckt-context, $context), true, false);
 }
