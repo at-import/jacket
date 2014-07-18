@@ -51,7 +51,7 @@ $jacket: null !default;
   // Filter out duplicate selectors.
   // If reject() is added to Sass we can remove the $filtered holder variable.
   @each $selector in $selectors {
-    @if index($filtered, $selector) == false {
+    @if not index($filtered, $selector) {
       $filtered: append($filtered, $selector);
     }
   }
