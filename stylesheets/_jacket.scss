@@ -35,7 +35,7 @@ $jacket: null !default;
   // Test if a jacket context and jacket value match.
   @each $item in $jacket {
     @each $context in $contexts {
-      @if index($context, nth($item, 1)) {
+      @if index($context, nth($item, 1)) and not ($context == null) {
 
         // Gather wrapping selectors.
         @if length($item) == 1 {
