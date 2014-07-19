@@ -21,7 +21,7 @@ $jacket: null !default;
 // Outputs a block of styles if a context is set.
 ///////////////////////////////////////////////////////////
 @mixin jacket($contexts...) {
-	$matchResult: jacketMatch($contexts);
+	$matchResult: jacket-match($contexts);
 	$naked: nth($matchResult, 1);
 	$selector-string: nth($matchResult, 2);
 	
@@ -39,7 +39,7 @@ $jacket: null !default;
 }
 
 ///////////////////////////////////////////////////////////
-// jacketMatch function
+// jacket-match function
 // Takes a list of jacket contexts.
 // Returns a list of two elements:
 // first Element is true if there was at keast one context wothout a .wrapping-selector
@@ -48,7 +48,7 @@ $jacket: null !default;
 // String '' if there was no context woth a .wrapping-selector
 // that matched against the $jacket variable. 
 ///////////////////////////////////////////////////////////
-@function jacketMatch($contexts...) {
+@function jacket-match($contexts...) {
 	
   $naked: false;
   $selectors: ();
@@ -103,7 +103,7 @@ $jacket: null !default;
 // Outputs a value if a context is set.
 ///////////////////////////////////////////////////////////
 @function jacket($value, $contexts...) {
-	$matchResult:jacketMatch($contexts);
+	$matchResult:jacket-match($contexts);
 	@if ( nth($matchResult, 1)  or (nth($matchResult, 2) != '')){
 		// If the weather is right, return the value!
 		@return $value;
@@ -113,5 +113,3 @@ $jacket: null !default;
   // will not be printed.
   @return null;
 }
-
-
