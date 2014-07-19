@@ -113,3 +113,21 @@ $jacket: null !default;
   // will not be printed.
   @return null;
 }
+
+///////////////////////////////////////////////////////////
+// jacket-add-contexts function
+// Function to add Contexts to the Jacket Context.
+// Outputs The new Jacket Variable, which has already been set globally
+// Contexts have to be seperated by comma, wrapper have to be seperated from
+// their context by space.
+///////////////////////////////////////////////////////////
+@function jacket-add-contexts($contexts...) {
+	@each $context in $contexts {
+		@if ($jacket == null){
+			$jacket:$context !global;
+		}@else{
+			$jacket:append($jacket, $context, $separator:comma) !global;
+		}
+	}
+	@return $jacket;
+}
