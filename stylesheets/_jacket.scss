@@ -49,7 +49,12 @@ $jacket: null !default;
 // that matched against the $jacket variable. 
 ///////////////////////////////////////////////////////////
 @function jacket-match($contexts...) {
+	// unpack stangely packed lists
+	@if (length($contexts) == 1){
+	  $contexts:nth($contexts, 1);
+	}
 	
+
   $naked: false;
   $selectors: ();
   $filtered: ();
@@ -63,6 +68,8 @@ $jacket: null !default;
   // Test if a jacket context and jacket value match.
   @each $item in $jacket {
     @each $context in $contexts {
+	
+
       @if index($context, nth($item, 1)) and not ($context == null) {
 
         // Gather wrapping selectors.
@@ -103,6 +110,11 @@ $jacket: null !default;
 // Outputs a value if a context is set.
 ///////////////////////////////////////////////////////////
 @function jacket($value, $contexts...) {
+	// unpack stangely packed lists
+	@if (length($contexts) == 1){
+	  $contexts:nth($contexts, 1);
+	}
+
 	$matchResult:jacket-match($contexts);
 	@if ( nth($matchResult, 1)  or (nth($matchResult, 2) != '')){
 		// If the weather is right, return the value!
@@ -121,12 +133,17 @@ $jacket: null !default;
 // Outputs another value if a context is not set.
 ///////////////////////////////////////////////////////////
 @function jacket-else($value, $else, $contexts...) {
+	// unpack stangely packed lists
+	@if (length($contexts) == 1){
+	  $contexts:nth($contexts, 1);
+	}
+
 	// If the weather is right, return the value!
-	@if (jacket(true, $contexts)){
+	@if (jacket(true,$contexts)){
 		@return $value;
 	}
 
-  // Else, rany weather, but retrun at least something else.
+  // Else, rainy weather, but retrun at least something else.
   @return $else;
 }
 
