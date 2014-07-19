@@ -115,6 +115,22 @@ $jacket: null !default;
 }
 
 ///////////////////////////////////////////////////////////
+// jacket-else function
+// Takes a list of jacket contexts.
+// Outputs a value if a context is set.
+// Outputs another value if a context is not set.
+///////////////////////////////////////////////////////////
+@function jacket-else($value, $else, $contexts...) {
+	// If the weather is right, return the value!
+	@if (jacket(true, $contexts)){
+		@return $value;
+	}
+
+  // Else, rany weather, but retrun at least something else.
+  @return $else;
+}
+
+///////////////////////////////////////////////////////////
 // jacket-add-contexts function
 // Function to add Contexts to the Jacket Context.
 // Outputs The new Jacket Variable, which has already been set globally
