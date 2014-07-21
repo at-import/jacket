@@ -15,23 +15,50 @@
 // Default list of jacket contexts.
 $jacket: null !default;
 
-// Private variable used by jacket-context().
-$jckt-context: null;
-
 ///////////////////////////////////////////////////////////
 // Jacket mixin
 // Takes a list of jacket contexts.
 // Outputs a block of styles if a context is set.
 ///////////////////////////////////////////////////////////
 @mixin jacket($contexts...) {
+	$matchResult: jacket-match($contexts);
+	$naked: nth($matchResult, 1);
+	$selector-string: nth($matchResult, 2);
+	
+  // If the weather is right, output that jacketed code!
+  @if $naked {
+    @content;
+  }
+  @if $selector-string != '' {
+    #{$selector-string} {
+      @content;
+    }
+  }
+
+	// there is bad weather down here don't output nothing
+}
+
+///////////////////////////////////////////////////////////
+// jacket-match function
+// Takes a list of jacket contexts.
+// Returns a list of two elements:
+// first Element is true if there was at keast one context wothout a .wrapping-selector
+// that matched against the $jacket variable. returns false otherwise
+// Second element is a String of the resulting wrapping Selectors or an empty
+// String '' if there was no context woth a .wrapping-selector
+// that matched against the $jacket variable. 
+///////////////////////////////////////////////////////////
+@function jacket-match($contexts...) {
+	// unpack stangely packed lists
+	@if (length($contexts) == 1){
+	  $contexts:nth($contexts, 1);
+	}
+	
 
   $naked: false;
   $selectors: ();
   $filtered: ();
   $selector-string: '';
-
-  // Set the global context variable.
-  $jckt-context: $contexts !global;
 
   // If jacket is a single context and selector list, encapsulate.
   @if list-separator($jacket) == 'space' {
@@ -41,7 +68,9 @@ $jckt-context: null;
   // Test if a jacket context and jacket value match.
   @each $item in $jacket {
     @each $context in $contexts {
-      @if index($context, nth($item, 1)) {
+	
+
+      @if index($context, nth($item, 1)) and not ($context == null) {
 
         // Gather wrapping selectors.
         @if length($item) == 1 {
@@ -57,7 +86,7 @@ $jckt-context: null;
   // Filter out duplicate selectors.
   // If reject() is added to Sass we can remove the $filtered holder variable.
   @each $selector in $selectors {
-    @if index($filtered, $selector) == false {
+    @if not index($filtered, $selector) {
       $filtered: append($filtered, $selector);
     }
   }
@@ -70,16 +99,10 @@ $jckt-context: null;
     $selector-string: $selector-string + $selector;
   }
 
-  // If the weather is right, output that jacketed code!
-  @if $naked {
-    @content;
-  }
-  @if $selector-string != '' {
-    #{$selector-string} {
-      @content;
-    }
-  }
+  // return Result
+  @return $naked, $selector-string;
 }
+
 
 ///////////////////////////////////////////////////////////
 // Jacket function
@@ -87,15 +110,16 @@ $jckt-context: null;
 // Outputs a value if a context is set.
 ///////////////////////////////////////////////////////////
 @function jacket($value, $contexts...) {
+	// unpack stangely packed lists
+	@if (length($contexts) == 1){
+	  $contexts:nth($contexts, 1);
+	}
 
-  @each $item in $jacket {
-    @each $context in $contexts {
-      @if index($context, nth($item, 1)) {
-        // If the weather is right, return the value!
-        @return $value;
-      }
-    }
-  }
+	$matchResult:jacket-match($contexts);
+	@if ( nth($matchResult, 1)  or (nth($matchResult, 2) != '')){
+		// If the weather is right, return the value!
+		@return $value;
+	}
 
   // Else return null. If null is the only value for a selector, the selector
   // will not be printed.
@@ -103,10 +127,40 @@ $jckt-context: null;
 }
 
 ///////////////////////////////////////////////////////////
-// Jacket Context function
-// Takes a jacket context value. Use when code inside a jacket
-// needs to know if a specific jacket context is set.
+// jacket-else function
+// Takes a list of jacket contexts.
+// Outputs a value if a context is set.
+// Outputs another value if a context is not set.
 ///////////////////////////////////////////////////////////
-@function jacket-context($context) {
-  @return if(index($jckt-context, $context), true, false);
+@function jacket-else($value, $else, $contexts...) {
+	// unpack stangely packed lists
+	@if (length($contexts) == 1){
+	  $contexts:nth($contexts, 1);
+	}
+
+	// If the weather is right, return the value!
+	@if (jacket(true,$contexts)){
+		@return $value;
+	}
+
+  // Else, rainy weather, but retrun at least something else.
+  @return $else;
+}
+
+///////////////////////////////////////////////////////////
+// jacket-add-contexts function
+// Function to add Contexts to the Jacket Context.
+// Outputs The new Jacket Variable, which has already been set globally
+// Contexts have to be seperated by comma, wrapping selector associated
+// have to be seperated from their context by space.
+///////////////////////////////////////////////////////////
+@function jacket-add-contexts($contexts...) {
+	@each $context in $contexts {
+		@if ($jacket == null){
+			$jacket:$context !global;
+		}@else{
+			$jacket:append($jacket, $context, $separator:comma) !global;
+		}
+	}
+	@return $jacket;
 }
